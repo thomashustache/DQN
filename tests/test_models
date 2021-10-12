@@ -1,0 +1,24 @@
+import sys
+sys.path.append("/Users/hustachethomas/Desktop/MasterIA/Projets/DRL_rat/")
+
+import numpy as np
+from env.trainer import Trainer
+
+trainer = Trainer(epsilon=0.1,
+               min_epsilon=0.1,
+               eps_decay=0.96,
+               historic=1,
+               model_type='mlp',
+               lr=0.1,
+               gamma=0.9)
+
+dqn = trainer.agent
+
+for target_layer_weight, main_layer_weight in zip(dqn.qtargetnetwork.model.get_weights(), dqn.main_qnetwork.model.get_weights()):
+    if len(target_layer_weight.shape) > 1:
+        assert not(np.all(target_layer_weight == main_layer_weight))
+
+trainer.update_target_graph()
+for target_layer_weight, main_layer_weight in zip(dqn.qtargetnetwork.model.get_weights(), dqn.main_qnetwork.model.get_weights()):
+    if len(target_layer_weight.shape) > 1:
+        assert np.all(target_layer_weight == main_layer_weight)
