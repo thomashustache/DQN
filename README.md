@@ -12,3 +12,7 @@ The goal is to code an agent to solve this task that will learn by trial and err
 
 ### Convolutional Agent with incentives for exploration
 ![](gifs/cnn1000newr.gif)
+
+
+### Dueling DQN agent
+![](gifs/dueling1000newr.gif)
